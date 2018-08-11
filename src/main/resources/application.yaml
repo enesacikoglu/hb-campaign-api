@@ -1,0 +1,13 @@
+spring:
+  profiles: dev
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=h2;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    database: H2
+    hibernate:
+      ddl-auto: create-drop
+  application:
+    name: HB Company Campaing Api
