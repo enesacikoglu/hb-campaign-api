@@ -52,7 +52,7 @@ public class OrderRepositoryTest {
         //then
         assertThat(optionalExpectedOrder).isPresent();
         Order expected = optionalExpectedOrder.get();
-        assertThat(expected.getOrderId()).isEqualTo(1L);
+        assertThat(expected.getOrderId()).isNotNull();
         assertThat(expected.getQuantity()).isEqualTo(3L);
         assertThat(expected.getProduct().getProductCode()).isEqualTo(61L);
         assertThat(expected.getProduct().getPrice()).isEqualTo(1);

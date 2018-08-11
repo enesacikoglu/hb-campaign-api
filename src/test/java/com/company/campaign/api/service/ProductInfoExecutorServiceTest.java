@@ -3,6 +3,7 @@ package com.company.campaign.api.service;
 import com.company.campaign.api.builder.ProductBuilder;
 import com.company.campaign.api.domain.Product;
 import com.company.campaign.api.repository.ProductRepository;
+import com.company.campaign.api.service.implemantations.ProductInfoExecutorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

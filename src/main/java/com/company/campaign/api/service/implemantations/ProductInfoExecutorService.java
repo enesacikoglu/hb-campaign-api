@@ -1,8 +1,10 @@
-package com.company.campaign.api.service;
+package com.company.campaign.api.service.implemantations;
 
 
 import com.company.campaign.api.domain.Product;
 import com.company.campaign.api.repository.ProductRepository;
+import com.company.campaign.api.service.interfaces.ICommandExecutor;
+import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
 import org.springframework.stereotype.Service;
 
 @Service

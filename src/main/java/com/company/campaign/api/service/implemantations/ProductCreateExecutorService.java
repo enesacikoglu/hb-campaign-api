@@ -1,9 +1,11 @@
-package com.company.campaign.api.service;
+package com.company.campaign.api.service.implemantations;
 
 
 import com.company.campaign.api.builder.ProductBuilder;
 import com.company.campaign.api.domain.Product;
 import com.company.campaign.api.repository.ProductRepository;
+import com.company.campaign.api.service.interfaces.ICommandExecutor;
+import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class ProductCreateExecutorService implements ICommandExecutor, ICommandO
                 .stock(Long.valueOf(commands[3]))
                 .build();
         print("Product created ;" + product.toString());
-        productRepository.save(product);
+        product = productRepository.save(product);
         return product;
     }
 

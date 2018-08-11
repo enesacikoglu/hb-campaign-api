@@ -23,7 +23,7 @@ public enum CommandType {
 
     public static String findCommandTypeBeanNameBy(String command) {
         return Arrays.stream(CommandType.values())
-                .filter(countryName -> StringUtils.equals(countryName.name().toLowerCase(), command))
+                .filter(commandType -> StringUtils.equals(commandType.name().toLowerCase(), command))
                 .findFirst()
                 .orElse(CommandType.GET_PRODUCT_INFO)
                 .command + SERVICE_SUFFIX;

@@ -1,6 +1,9 @@
 package com.company.campaign.api.service;
 
 
+import com.company.campaign.api.service.implemantations.ProductCreateExecutorService;
+import com.company.campaign.api.service.implemantations.ProductInfoExecutorService;
+import com.company.campaign.api.service.interfaces.ICommandExecutor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,24 +34,20 @@ public class CommandServiceTest {
 
 
     @Test
-    public void it_should_run_product_create_command(){
+    public void it_should_run_product_create_command() {
         //given
-        when(applicationContext.getBean("productCreateExecutorService", ProductCreateExecutorService.class))
-                .thenReturn(productCreateExecutorService);
-
-        when(applicationContext.getBean("productInfoExecutorService", ProductInfoExecutorService.class))
+        when(applicationContext.getBean("productCreateExecutorService", ICommandExecutor.class))
+                .thenReturn(productCreateExecutorService)
                 .thenReturn(productInfoExecutorService);
 
-
         List<String> commands = Arrays.asList("get_product_info 1", "create_product 1 100 1000");
+
         //when
         commandService.runCommands(commands);
 
 
         //then
-        verify(applicationContext).getBean("productCreateExecutorService", ProductCreateExecutorService.class);
-        verify(applicationContext).getBean("productInfoExecutorService", ProductInfoExecutorService.class);
-
-
+        verify(applicationContext).getBean("productCreateExecutorService", ICommandExecutor.class);
+        verify(applicationContext).getBean("productInfoExecutorService", ICommandExecutor.class);
     }
 }

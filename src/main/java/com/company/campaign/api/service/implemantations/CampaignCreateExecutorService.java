@@ -1,4 +1,4 @@
-package com.company.campaign.api.service;
+package com.company.campaign.api.service.implemantations;
 
 
 import com.company.campaign.api.builder.CampaignBuilder;
@@ -6,6 +6,8 @@ import com.company.campaign.api.domain.Campaign;
 import com.company.campaign.api.domain.Product;
 import com.company.campaign.api.repository.CampaignRepository;
 import com.company.campaign.api.repository.ProductRepository;
+import com.company.campaign.api.service.interfaces.ICommandExecutor;
+import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,11 @@ public class CampaignCreateExecutorService implements ICommandExecutor, ICommand
     private CampaignRepository campaignRepository;
 
     @Override
-    public Campaign executeCommand(String runCommand) {
+    public Campaign executeCommand(String runCommand) throws Exception {
         String[] commands = runCommand.split(" ");
         Product product = productRepository.findById(Long.valueOf(commands[2]))
-                .orElse(null);//TODO exception fırlat...
+                .orElseThrow(() -> new Exception("Product Not Found!"));//TODO exception fırlat...
+
         Campaign campaign = CampaignBuilder
                 .aCampaign()
                 .name(commands[1])
