@@ -17,10 +17,10 @@ public class ProductInfoExecutorService implements ICommandExecutor, ICommandOut
     }
 
     @Override
-    public Product executeCommand(String command) {
+    public Product executeCommand(String command) throws Exception {
         String[] commands = command.split(" ");
         Product product = productRepository.findById(Long.valueOf(commands[1]))
-                .orElse(null);//TODO exception fırlat....
+                .orElseThrow(() -> new Exception("Product Not Found!"));//TODO exception fırlat....
         print("Product info; " + product.toString());
         return product;
     }
