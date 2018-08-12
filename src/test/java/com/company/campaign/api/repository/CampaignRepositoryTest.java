@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +33,7 @@ public class CampaignRepositoryTest {
         Product product = ProductBuilder
                 .aProduct()
                 .productCode(1L)
-                .price(BigInteger.ONE)
+                .price(BigDecimal.ONE)
                 .stock(1000L)
                 .build();
 

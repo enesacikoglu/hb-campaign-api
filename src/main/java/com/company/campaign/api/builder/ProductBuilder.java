@@ -2,11 +2,12 @@ package com.company.campaign.api.builder;
 
 import com.company.campaign.api.domain.Product;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public final class ProductBuilder {
     private Long productCode;
-    private BigInteger price;
+    private BigDecimal price;
     private Long stock;
 
     private ProductBuilder() {
@@ -21,7 +22,7 @@ public final class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder price(BigInteger price) {
+    public ProductBuilder price(BigDecimal price) {
         this.price = price;
         return this;
     }

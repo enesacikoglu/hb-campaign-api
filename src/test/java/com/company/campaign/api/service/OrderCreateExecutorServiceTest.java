@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,7 +42,7 @@ public class OrderCreateExecutorServiceTest {
         Product product = ProductBuilder
                 .aProduct()
                 .productCode(1L)
-                .price(BigInteger.ONE)
+                .price(BigDecimal.ONE)
                 .productCode(2L)
                 .stock(300L)
                 .build();
@@ -67,7 +67,7 @@ public class OrderCreateExecutorServiceTest {
         //then
         verify(productRepository, times(1)).save(any(Product.class));
 
-        assertThat(expectedOrder.getProduct().getPrice()).isEqualTo(1);
+        assertThat(expectedOrder.getProduct().getPrice()).isEqualTo(BigDecimal.ONE);
         assertThat(expectedOrder.getProduct().getStock()).isEqualTo(100L);
         assertThat(expectedOrder.getProduct().getProductCode()).isEqualTo(2L);
         assertThat(expectedOrder.getOrderId()).isNotNull();

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity
@@ -22,7 +23,7 @@ public class Product implements Serializable {
     private Long productCode;
 
     @Column(name = "price", nullable = false)
-    private BigInteger price;
+    private BigDecimal price;
 
     @Column(name = "stock", nullable = false)
     private Long stock;
@@ -35,11 +36,11 @@ public class Product implements Serializable {
         this.productCode = productCode;
     }
 
-    public BigInteger getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigInteger price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

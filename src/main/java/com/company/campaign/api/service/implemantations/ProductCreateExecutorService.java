@@ -9,7 +9,7 @@ import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Service
 public class ProductCreateExecutorService implements ICommandExecutor, ICommandOutPutPrinter {
@@ -23,7 +23,7 @@ public class ProductCreateExecutorService implements ICommandExecutor, ICommandO
         Product product = ProductBuilder
                 .aProduct()
                 .productCode(Long.valueOf(commands[1]))
-                .price(BigInteger.valueOf(Long.valueOf(commands[2])))
+                .price(BigDecimal.valueOf(Long.valueOf(commands[2])))
                 .stock(Long.valueOf(commands[3]))
                 .build();
         print("Product created ;" + product.toString());

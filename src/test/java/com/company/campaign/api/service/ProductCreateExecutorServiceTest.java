@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +34,7 @@ public class ProductCreateExecutorServiceTest {
         Product product = ProductBuilder
                 .aProduct()
                 .productCode(1L)
-                .price(BigInteger.TEN)
+                .price(BigDecimal.TEN)
                 .stock(1000L)
                 .build();
 
@@ -47,7 +47,7 @@ public class ProductCreateExecutorServiceTest {
 
         //then
         assertThat(expectedProduct.getProductCode()).isEqualTo(1L);
-        assertThat(expectedProduct.getPrice()).isEqualTo(10);
+        assertThat(expectedProduct.getPrice()).isEqualTo(BigDecimal.TEN);
         assertThat(expectedProduct.getStock()).isEqualTo(1000L);
     }
 }

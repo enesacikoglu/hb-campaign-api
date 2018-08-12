@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,7 +41,7 @@ public class CampaignCreateExecutorServiceTest {
         Product product = ProductBuilder
                 .aProduct()
                 .productCode(1L)
-                .price(BigInteger.ONE)
+                .price(BigDecimal.ONE)
                 .productCode(2L)
                 .stock(3L)
                 .build();
