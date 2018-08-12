@@ -21,6 +21,7 @@ public class CommandService {
     public void runCommands(List<String> commands) {
         commands.forEach(command ->
                 handleThrowable(() -> applicationContext
-                        .getBean(CommandType.findCommandTypeBeanNameBy(command.split(" ")[0]), ICommandExecutor.class)));
+                        .getBean(CommandType.findCommandTypeBeanNameBy(command.split(" ")[0]), ICommandExecutor.class)
+                        .executeCommand(command)));
     }
 }
