@@ -7,6 +7,7 @@ public final class OrderBuilder {
     private Long orderId;
     private Product product;
     private Long quantity;
+    private Boolean isCampaignOrder = Boolean.FALSE;
 
     private OrderBuilder() {
     }
@@ -30,11 +31,17 @@ public final class OrderBuilder {
         return this;
     }
 
+    public OrderBuilder campaignOrder(Boolean isCampaignOrder) {
+        this.isCampaignOrder = isCampaignOrder;
+        return this;
+    }
+
     public Order build() {
         Order order = new Order();
         order.setOrderId(orderId);
         order.setProduct(product);
         order.setQuantity(quantity);
+        order.setCampaignOrder(isCampaignOrder);
         return order;
     }
 }

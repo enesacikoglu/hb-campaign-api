@@ -39,13 +39,8 @@ public class Campaign implements Serializable {
     @Column(name = "price_manipulation_limit", nullable = false)
     private Double priceManipulationLimit;
 
-
     @Column(name = "target_sales_count", nullable = false)
     private Long targetSalesCount;
-
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private StatusType status = StatusType.ACTIVE;
 
     public Long getCampaignId() {
         return campaignId;
@@ -95,15 +90,6 @@ public class Campaign implements Serializable {
         this.targetSalesCount = targetSalesCount;
     }
 
-    public StatusType getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusType status) {
-        this.status = status;
-    }
-
-
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -113,7 +99,6 @@ public class Campaign implements Serializable {
                 .append("duration", duration)
                 .append("priceManipulationLimit", priceManipulationLimit)
                 .append("targetSalesCount", targetSalesCount)
-                .append("status", status)
                 .toString();
     }
 }

@@ -11,7 +11,6 @@ public final class CampaignBuilder {
     private Double duration;
     private Double priceManipulationLimit;
     private Long targetSalesCount;
-    private StatusType status = StatusType.ACTIVE;
 
     private CampaignBuilder() {
     }
@@ -50,11 +49,6 @@ public final class CampaignBuilder {
         return this;
     }
 
-    public CampaignBuilder status(StatusType status) {
-        this.status = status;
-        return this;
-    }
-
     public Campaign build() {
         Campaign campaign = new Campaign();
         campaign.setCampaignId(campaignId);
@@ -63,7 +57,6 @@ public final class CampaignBuilder {
         campaign.setDuration(duration);
         campaign.setPriceManipulationLimit(priceManipulationLimit);
         campaign.setTargetSalesCount(targetSalesCount);
-        campaign.setStatus(status);
         return campaign;
     }
 }

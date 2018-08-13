@@ -2,8 +2,11 @@ package com.company.campaign.api.service.implemantations;
 
 
 import com.company.campaign.api.builder.OrderBuilder;
+import com.company.campaign.api.domain.CampaignProduct;
 import com.company.campaign.api.domain.Order;
 import com.company.campaign.api.domain.Product;
+import com.company.campaign.api.domain.enums.StatusType;
+import com.company.campaign.api.repository.CampaignProductRepository;
 import com.company.campaign.api.repository.OrderRepository;
 import com.company.campaign.api.repository.ProductRepository;
 import com.company.campaign.api.service.interfaces.ICommandExecutor;
@@ -22,24 +25,38 @@ public class OrderCreateExecutorService implements ICommandExecutor, ICommandOut
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CampaignProductRepository campaignProductRepository;
+
     @Override
     public Order executeCommand(String command) throws Exception {
         String[] commands = command.split(" ");
 
-        Product product = productRepository.findById(Long.valueOf(commands[1]))
+        Long productCode = Long.valueOf(commands[1]);
+        Long quantity = Long.valueOf(commands[2]);
+
+        Product product = productRepository.findById(productCode)
                 .orElseThrow(() -> new Exception("Product Not Found"));//TODO exception fırlat...
 
-        Long remainingStock = calculateRemainingStock(product.getStock(), Long.valueOf(commands[2]))
+        CampaignProduct campaignProduct = campaignProductRepository.findByProduct_ProductCode(productCode)
+                .orElseThrow(() -> new Exception("Campaign Not Found for Product!"));
+
+        Order order = OrderBuilder
+                .anOrder()
+                .build();
+
+        if (campaignProduct.getStatus() == StatusType.ACTIVE) {
+            product.setPrice(campaignProduct.getCampaignPrice());
+            order.setCampaignOrder(Boolean.TRUE);
+        }
+
+        Long remainingStock = calculateRemainingStock(product.getStock(), quantity)
                 .orElseThrow(() -> new Exception("Stock Exceed!"));
         product.setStock(remainingStock);
         productRepository.save(product);
 
-        Order order = OrderBuilder
-                .anOrder()
-                .product(product)
-                .quantity(Long.valueOf(commands[2]))
-                .build();
-
+        order.setProduct(product);
+        order.setQuantity(quantity);
         order = orderRepository.save(order);
 
         print("Order created ;" + order.toString());

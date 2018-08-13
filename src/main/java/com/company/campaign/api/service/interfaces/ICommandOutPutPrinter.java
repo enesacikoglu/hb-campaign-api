@@ -10,7 +10,6 @@ public interface ICommandOutPutPrinter {
 
     default void print(String outPut) {
         LOGGER.debug(outPut);
-        System.out.println(outPut);
     }
 
 }

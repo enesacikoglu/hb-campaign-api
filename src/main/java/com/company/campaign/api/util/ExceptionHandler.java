@@ -14,7 +14,6 @@ public final class ExceptionHandler {
         try {
             exceptionalSupplier.get();
         } catch (Exception exception) {
-            System.out.println("Error occurred, detail: " + exception);
             LOG.error("Error occurred, detail: {}", exception.
                     getMessage());
         }

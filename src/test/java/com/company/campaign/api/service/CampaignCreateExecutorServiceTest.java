@@ -73,7 +73,6 @@ public class CampaignCreateExecutorServiceTest {
         assertThat(expectedCampaign.getDuration()).isEqualTo(12.00);
         assertThat(expectedCampaign.getPriceManipulationLimit()).isEqualTo(24.00);
         assertThat(expectedCampaign.getTargetSalesCount()).isEqualTo(100);
-        assertThat(expectedCampaign.getStatus()).isEqualByComparingTo(StatusType.ACTIVE);
     }
 
 }
