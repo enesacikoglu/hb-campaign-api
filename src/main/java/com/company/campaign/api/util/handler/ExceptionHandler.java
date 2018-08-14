@@ -1,4 +1,4 @@
-package com.company.campaign.api.util;
+package com.company.campaign.api.util.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

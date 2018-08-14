@@ -57,6 +57,7 @@ public class CampaignProductRepositoryTest {
                 .totalSalesCount(10L)
                 .turnover(2L)
                 .campaignRemainingTime(2.00)
+                .realPrice(BigDecimal.TEN)
                 .build();
 
         testEntityManager.persistAndFlush(product);
@@ -77,6 +78,7 @@ public class CampaignProductRepositoryTest {
         assertThat(actual.getTotalSalesCount()).isEqualTo(10L);
         assertThat(actual.getCampaignRemainingTime()).isEqualTo(2.00);
         assertThat(actual.getCampaignPrice()).isEqualTo(BigDecimal.ONE);
+        assertThat(actual.getRealPrice()).isEqualTo(BigDecimal.TEN);
 
     }
 
@@ -109,6 +111,7 @@ public class CampaignProductRepositoryTest {
                 .totalSalesCount(10L)
                 .turnover(2L)
                 .campaignRemainingTime(2.00)
+                .realPrice(BigDecimal.TEN)
                 .build();
 
         testEntityManager.persistAndFlush(product);
@@ -129,6 +132,7 @@ public class CampaignProductRepositoryTest {
         assertThat(actual.getTotalSalesCount()).isEqualTo(10L);
         assertThat(actual.getCampaignRemainingTime()).isEqualTo(2.00);
         assertThat(actual.getCampaignPrice()).isEqualTo(BigDecimal.ONE);
+        assertThat(actual.getRealPrice()).isEqualTo(BigDecimal.TEN);
 
     }
 }

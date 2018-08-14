@@ -36,10 +36,11 @@ public class ProductInfoExecutorService implements ICommandExecutor, ICommandOut
             CampaignProduct campaign = campaignProduct.get();
             if (campaign.getStatus() != StatusType.ENDED) {
                 product.setPrice(campaignProduct.get().getCampaignPrice());
-            }else {
+            } else {
                 product.setPrice(campaignProduct.get().getRealPrice());
             }
         }
+
         print("Product info; " + product.toString());
         return product;
     }

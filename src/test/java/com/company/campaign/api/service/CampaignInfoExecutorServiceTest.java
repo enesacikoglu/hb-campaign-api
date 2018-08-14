@@ -29,8 +29,11 @@ public class CampaignInfoExecutorServiceTest {
     @Mock
     private CampaignProductRepository campaignProductRepository;
 
+    @Mock
+    private PriceManipulatorService priceManipulatorService;
 
-    @Test
+
+    @Test //TODO testi düzeltilcek her parametre ve loik kontrolu
     public void it_should_execute_command_and_return_campaign() throws Exception {
         //given
         final String command = "get_campaign_info NS";
@@ -55,9 +58,23 @@ public class CampaignInfoExecutorServiceTest {
                 .campaignRemainingTime(12.00)
                 .build();
 
+        CampaignProduct manipulatedCampaignProduct = CampaignProductBuilder
+                .aCampaignProduct()
+                .campaign(campaign)
+                .product(product)
+                .campaignPrice(BigDecimal.ONE)
+                .campaignRemainingTime(12.00)
+                .turnover(12L)
+                .averageItemPrice(1L)
+                .totalSalesCount(100L)
+                .build();
+
 
         given(campaignProductRepository.findByCampaign_Name("NS"))
                 .willReturn(Optional.of(campaignProduct));
+
+        given(priceManipulatorService.calculate(campaignProduct))
+                .willReturn(manipulatedCampaignProduct);
 
         //when
         CampaignProduct expectedCampaign = campaignInfoExecutorService.executeCommand(command);
@@ -67,6 +84,6 @@ public class CampaignInfoExecutorServiceTest {
         assertThat(expectedCampaign.getCampaign()).isEqualTo(campaign);
         assertThat(expectedCampaign.getCampaignPrice()).isEqualTo(BigDecimal.ONE);
         assertThat(expectedCampaign.getCampaignRemainingTime()).isEqualTo(12.00);
-        assertThat(expectedCampaign.getTotalSalesCount()).isEqualTo(0L);
+        assertThat(expectedCampaign.getTotalSalesCount()).isEqualTo(100L);
     }
 }

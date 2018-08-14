@@ -26,8 +26,8 @@ public class ProductCreateExecutorService implements ICommandExecutor, ICommandO
                 .price(BigDecimal.valueOf(Long.valueOf(commands[2])))
                 .stock(Long.valueOf(commands[3]))
                 .build();
-        print("Product created ;" + product.toString());
         product = productRepository.save(product);
+        print("Product created ;" + product.toString());
         return product;
     }
 

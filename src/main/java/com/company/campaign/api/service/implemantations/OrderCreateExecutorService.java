@@ -11,6 +11,7 @@ import com.company.campaign.api.repository.OrderRepository;
 import com.company.campaign.api.repository.ProductRepository;
 import com.company.campaign.api.service.interfaces.ICommandExecutor;
 import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
+import com.company.campaign.api.util.ObjectHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,13 +40,13 @@ public class OrderCreateExecutorService implements ICommandExecutor, ICommandOut
                 .orElseThrow(() -> new Exception("Product Not Found"));//TODO exception fırlat...
 
         CampaignProduct campaignProduct = campaignProductRepository.findByProduct_ProductCode(productCode)
-                .orElseThrow(() -> new Exception("Campaign Not Found for Product!"));
+                .orElse(null);
 
         Order order = OrderBuilder
                 .anOrder()
                 .build();
 
-        if (campaignProduct.getStatus() == StatusType.ACTIVE) {
+        if (ObjectHelper.isPresent(campaignProduct) && campaignProduct.getStatus() == StatusType.ACTIVE) {
             product.setPrice(campaignProduct.getCampaignPrice());
             order.setCampaignOrder(Boolean.TRUE);
         }
@@ -60,11 +61,10 @@ public class OrderCreateExecutorService implements ICommandExecutor, ICommandOut
         order = orderRepository.save(order);
 
         print("Order created ;" + order.toString());
-
         return order;
     }
 
-    private Optional<Long> calculateRemainingStock(Long currentStock, Long requestedCount) throws Exception {
+    private Optional<Long> calculateRemainingStock(Long currentStock, Long requestedCount) {
         if (requestedCount.compareTo(currentStock) > 0)
             return Optional.empty();
         return Optional.of(currentStock - requestedCount);

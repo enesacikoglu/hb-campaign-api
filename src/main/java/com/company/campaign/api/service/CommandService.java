@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.company.campaign.api.util.ExceptionHandler.handleThrowable;
+import static com.company.campaign.api.util.handler.ExceptionHandler.handleThrowable;
 
 @Service
 public class CommandService {
