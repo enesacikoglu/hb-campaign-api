@@ -53,6 +53,7 @@ public class OrderCreateExecutorService implements ICommandExecutor, ICommandOut
 
         Long remainingStock = calculateRemainingStock(product.getStock(), quantity)
                 .orElseThrow(() -> new Exception("Stock Exceed!"));
+
         product.setStock(remainingStock);
         productRepository.save(product);
 
