@@ -2,19 +2,22 @@ package com.company.campaign.api.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = FileReadService.class)
 public class FileReadServiceTest {
 
-    @InjectMocks
+    @Autowired
     private FileReadService fileReadService;
 
     @Test
@@ -27,5 +30,18 @@ public class FileReadServiceTest {
 
         //then
         assertThat(strings).hasSize(1);
+    }
+
+
+    @Test
+    public void it_should_return_string_list_of_given_file_path() throws IOException, URISyntaxException {
+        //given
+        String fileName = "commands.hb";
+
+        //when
+        List<String> commands = fileReadService.readFromResourceFile(fileName);
+
+        //then
+        assertThat(commands.size()).isGreaterThan(0);
     }
 }
