@@ -11,3 +11,7 @@ spring:
       ddl-auto: create-drop
   application:
     name: HB Company Campaing Api
+
+swagger:
+  host: localhost:8080
+  path:

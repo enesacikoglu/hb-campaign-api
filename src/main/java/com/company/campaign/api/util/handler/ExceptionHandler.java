@@ -1,4 +1,4 @@
-package com.company.campaign.api.util;
+package com.company.campaign.api.util.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,6 @@ public final class ExceptionHandler {
         try {
             exceptionalSupplier.get();
         } catch (Exception exception) {
-            System.out.println("Error occurred, detail: " + exception);
             LOG.error("Error occurred, detail: {}", exception.
                     getMessage());
         }

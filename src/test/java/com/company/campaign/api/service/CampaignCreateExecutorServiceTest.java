@@ -1,10 +1,13 @@
 package com.company.campaign.api.service;
 
 import com.company.campaign.api.builder.CampaignBuilder;
+import com.company.campaign.api.builder.CampaignProductBuilder;
 import com.company.campaign.api.builder.ProductBuilder;
 import com.company.campaign.api.domain.Campaign;
+import com.company.campaign.api.domain.CampaignProduct;
 import com.company.campaign.api.domain.Product;
 import com.company.campaign.api.domain.enums.StatusType;
+import com.company.campaign.api.repository.CampaignProductRepository;
 import com.company.campaign.api.repository.CampaignRepository;
 import com.company.campaign.api.repository.ProductRepository;
 import com.company.campaign.api.service.implemantations.CampaignCreateExecutorService;
@@ -13,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -32,6 +36,9 @@ public class CampaignCreateExecutorServiceTest {
 
     @Mock
     private ProductRepository productRepository;
+
+    @Mock
+    private CampaignProductRepository campaignProductRepository;
 
     @Test
     public void it_should_execute_command_and_return_created_campaign() throws Exception {
@@ -57,11 +64,24 @@ public class CampaignCreateExecutorServiceTest {
                 .targetSalesCount(100L)
                 .build();
 
+        CampaignProduct campaignProduct = CampaignProductBuilder
+                .aCampaignProduct()
+                .campaign(campaign)
+                .product(product)
+                .realPrice(product.getPrice())
+                .campaignPrice(product.getPrice())
+                .campaignRemainingTime(campaign.getDuration())
+                .build();
+
         given(productRepository.findById(1L))
                 .willReturn(Optional.of(product));
 
         given(campaignRepository.save(any(Campaign.class)))
                 .willReturn(campaign);
+
+        given(campaignProductRepository.save(any(CampaignProduct.class)))
+                .willReturn(campaignProduct);
+
 
         //when
         Campaign expectedCampaign = campaignCreateExecutorService.executeCommand(command);
@@ -73,7 +93,6 @@ public class CampaignCreateExecutorServiceTest {
         assertThat(expectedCampaign.getDuration()).isEqualTo(12.00);
         assertThat(expectedCampaign.getPriceManipulationLimit()).isEqualTo(24.00);
         assertThat(expectedCampaign.getTargetSalesCount()).isEqualTo(100);
-        assertThat(expectedCampaign.getStatus()).isEqualByComparingTo(StatusType.ACTIVE);
     }
 
 }

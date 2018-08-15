@@ -30,6 +30,9 @@ public class Order implements Serializable {
     @Column(name = "quantity")
     private Long quantity;
 
+    @Column(name = "is_campaign_order", nullable = false)
+    private Boolean isCampaignOrder = Boolean.FALSE;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -52,6 +55,14 @@ public class Order implements Serializable {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Boolean getCampaignOrder() {
+        return isCampaignOrder;
+    }
+
+    public void setCampaignOrder(Boolean campaignOrder) {
+        isCampaignOrder = campaignOrder;
     }
 
     @Override

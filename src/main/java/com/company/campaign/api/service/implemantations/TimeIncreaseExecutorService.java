@@ -1,33 +1,27 @@
 package com.company.campaign.api.service.implemantations;
 
 
-import com.company.campaign.api.domain.Order;
-import com.company.campaign.api.repository.OrderRepository;
-import com.company.campaign.api.repository.ProductRepository;
+import com.company.campaign.api.service.PriceManipulatorService;
 import com.company.campaign.api.service.interfaces.ICommandExecutor;
 import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
+import com.company.campaign.api.util.TimeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class TimeIncreaseExecutorService implements ICommandExecutor, ICommandOutPutPrinter {
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
+    private PriceManipulatorService priceManipulatorService;
 
     @Override
-    public Order executeCommand(String command) throws Exception {
-        return new Order();
-    }
+    public Long executeCommand(String command) {
 
-    private Optional<Long> calculateRemainingStock(Long currentStock, Long requestedCount) throws Exception {
-        if (requestedCount.compareTo(currentStock) > 0)
-            return Optional.empty();
-        return Optional.of(currentStock - requestedCount);
+        String[] commands = command.split(" ");
+        Double increasedTime = Double.valueOf(commands[1]);
+        priceManipulatorService.manipulate(increasedTime);
+        Long time = TimeHelper.incrementTime(increasedTime.longValue());
+        print("Time is " + time);
+        return time;
     }
 }

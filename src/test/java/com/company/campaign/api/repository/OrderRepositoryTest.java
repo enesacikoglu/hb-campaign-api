@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,15 +48,15 @@ public class OrderRepositoryTest {
         testEntityManager.persist(order);
 
         //when
-        Optional<Order> optionalExpectedOrder = orderRepository.findByProduct_ProductCode(61L);
+        Optional<List<Order>> optionalExpectedOrder = orderRepository.findByProduct_ProductCode(61L);
 
         //then
         assertThat(optionalExpectedOrder).isPresent();
-        Order expected = optionalExpectedOrder.get();
-        assertThat(expected.getOrderId()).isNotNull();
-        assertThat(expected.getQuantity()).isEqualTo(3L);
-        assertThat(expected.getProduct().getProductCode()).isEqualTo(61L);
-        assertThat(expected.getProduct().getPrice()).isEqualTo(BigDecimal.ONE);
-        assertThat(expected.getProduct().getStock()).isEqualTo(3L);
+        List<Order> expected = optionalExpectedOrder.get();
+        assertThat(expected.get(0).getOrderId()).isNotNull();
+        assertThat(expected.get(0).getQuantity()).isEqualTo(3L);
+        assertThat(expected.get(0).getProduct().getProductCode()).isEqualTo(61L);
+        assertThat(expected.get(0).getProduct().getPrice()).isEqualTo(BigDecimal.ONE);
+        assertThat(expected.get(0).getProduct().getStock()).isEqualTo(3L);
     }
 }
