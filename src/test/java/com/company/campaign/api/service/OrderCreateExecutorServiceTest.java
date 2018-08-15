@@ -45,7 +45,7 @@ public class OrderCreateExecutorServiceTest {
     @Mock
     private CampaignProductRepository campaignProductRepository;
 
-    @Test //TODO testine bakılcak campaign product alanları testlerı....
+    @Test
     public void it_should_execute_command_and_return_created_order() throws Exception {
         //given
         final String command = "create_order 1 200";
@@ -88,8 +88,8 @@ public class OrderCreateExecutorServiceTest {
         assertThat(expectedOrder.getQuantity()).isEqualTo(200L);
     }
 
-    @Test //TODO testine bakılcak campaign product alanları testlerı....
-    public void it_should_throw_exception_when_stock_is_exceed() throws Exception {
+    @Test
+    public void it_should_throw_exception_when_stock_is_exceed() {
         //given
         final String command = "create_order 1 400";
 

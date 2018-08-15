@@ -3,6 +3,7 @@ package com.company.campaign.api.domain;
 import com.company.campaign.api.domain.enums.StatusType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -29,7 +31,7 @@ public class Campaign implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_code", nullable = false)
     private Product product;
 

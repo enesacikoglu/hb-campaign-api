@@ -30,10 +30,10 @@ public class CampaignInfoExecutorServiceTest {
     private CampaignProductRepository campaignProductRepository;
 
     @Mock
-    private PriceManipulatorService priceManipulatorService;
+    private CampaignProductAggregateService campaignProductAggregateService;
 
 
-    @Test //TODO testi düzeltilcek her parametre ve loik kontrolu
+    @Test
     public void it_should_execute_command_and_return_campaign() throws Exception {
         //given
         final String command = "get_campaign_info NS";
@@ -73,7 +73,7 @@ public class CampaignInfoExecutorServiceTest {
         given(campaignProductRepository.findByCampaign_Name("NS"))
                 .willReturn(Optional.of(campaignProduct));
 
-        given(priceManipulatorService.calculate(campaignProduct))
+        given(campaignProductAggregateService.aggregateCurrentStatistics(campaignProduct))
                 .willReturn(manipulatedCampaignProduct);
 
         //when

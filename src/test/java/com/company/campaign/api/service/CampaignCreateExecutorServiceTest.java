@@ -40,7 +40,7 @@ public class CampaignCreateExecutorServiceTest {
     @Mock
     private CampaignProductRepository campaignProductRepository;
 
-    @Test // TODO testini düzelticeksin...
+    @Test
     public void it_should_execute_command_and_return_created_campaign() throws Exception {
         //given
         final String command = "create_campaign NS 1 12 24 100";
