@@ -1,0 +1,56 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: campaign-service
+spec:
+ replicas: 3
+ template:
+  metadata:
+    labels:
+      app: campaign-service
+  spec:
+   containers:
+   - name: campaign-service
+     image: enesacikoglu/campaign-service:1
+     imagePullPolicy: IfNotPresent
+     livenessProbe:
+       initialDelaySeconds: 30
+       httpGet:
+         path: /health
+         port: 8080
+     readinessProbe:
+       httpGet:
+          path: /health
+          port: 8080
+     ports:
+     - name: http
+       containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: campaign-service
+spec:
+ selector:
+    app: campaign-service
+ ports:
+  - port: 8080
+    name: http
+ type: NodePort
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: campaign-service
+spec:
+ rules:
+  - host: campaign-service.kubernetes.local
+    http:
+     paths:
+      - path: /
+        backend:
+          serviceName: campaign-service
+          servicePort: 8080
+---
+
+
