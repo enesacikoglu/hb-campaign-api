@@ -5,11 +5,16 @@ spring:
     database: h2
   datasource:
     name: H2 Platform
-    url: jdbc:h2:mem:address_api;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    url: jdbc:h2:mem:campaign_api;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
     driver-class-name: org.h2.Driver
     username: sa
-    password:
+    password: sa
+  h2:
+    console:
+      enabled: true
+      path: /console
 
 swagger:
   host: localhost:8080
   path:
+
