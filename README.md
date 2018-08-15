@@ -25,6 +25,11 @@ RestFul Service uses following Technologies:
 
 Use swagger to run commands Whether file or direct commands as above
 
+* use file format as "commands.hb" under the resource folder
+to upload new steps
+
+* Run commands separately under command-controller like "get_product_info 1" as string command
+
 ## Build
 
 Run mvn clean install
