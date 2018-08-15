@@ -28,7 +28,7 @@ Use swagger to run commands Whether file or direct commands as above
 * use file format as "commands.hb" with named under the resource folder
 to upload new steps
 
-* file nama must be "file"
+* file name must be "file"
 
 * Run commands separately under command-controller like "get_product_info 1" as string command
 
