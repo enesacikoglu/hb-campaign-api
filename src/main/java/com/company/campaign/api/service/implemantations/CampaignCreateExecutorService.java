@@ -6,6 +6,7 @@ import com.company.campaign.api.builder.CampaignProductBuilder;
 import com.company.campaign.api.domain.Campaign;
 import com.company.campaign.api.domain.CampaignProduct;
 import com.company.campaign.api.domain.Product;
+import com.company.campaign.api.exception.CampaignApiDomainNotFoundException;
 import com.company.campaign.api.repository.CampaignProductRepository;
 import com.company.campaign.api.repository.CampaignRepository;
 import com.company.campaign.api.repository.ProductRepository;
@@ -13,6 +14,8 @@ import com.company.campaign.api.service.interfaces.ICommandExecutor;
 import com.company.campaign.api.service.interfaces.ICommandOutPutPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.company.campaign.api.constant.MessageKeyConstants.MESSAGE_KEY_CAMPAIGN_NOT_FOUND_EXCEPTION;
 
 @Service
 public class CampaignCreateExecutorService implements ICommandExecutor, ICommandOutPutPrinter {
@@ -27,10 +30,10 @@ public class CampaignCreateExecutorService implements ICommandExecutor, ICommand
     private CampaignProductRepository campaignProductRepository;
 
     @Override
-    public Campaign executeCommand(String runCommand) throws Exception {
+    public Campaign executeCommand(String runCommand) {
         String[] commands = runCommand.split(" ");
         Product product = productRepository.findById(Long.valueOf(commands[2]))
-                .orElseThrow(() -> new Exception("Product Not Found!"));//TODO exception fırlat...
+                .orElseThrow(() -> new CampaignApiDomainNotFoundException(MESSAGE_KEY_CAMPAIGN_NOT_FOUND_EXCEPTION));
 
         Campaign campaign = CampaignBuilder
                 .aCampaign()
@@ -55,7 +58,7 @@ public class CampaignCreateExecutorService implements ICommandExecutor, ICommand
 
         campaignProductRepository.save(campaignProduct);
 
-        print("Campaign created ;" + campaign.toString());
+        print("Campaign created " + campaign);
         return campaign;
     }
 }

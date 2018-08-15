@@ -10,12 +10,13 @@ public final class ExceptionHandler {
     private ExceptionHandler() {
     }
 
-    public static <T, E extends Exception> void handleThrowable(ExceptionalSupplier<T, E> exceptionalSupplier) {
+    public static <T, E extends Exception> void handleThrowable(ExceptionalSupplier<T, E> exceptionalSupplier) throws E {
         try {
             exceptionalSupplier.get();
         } catch (Exception exception) {
             LOG.error("Error occurred, detail: {}", exception.
                     getMessage());
+            throw exception;
         }
     }
 }

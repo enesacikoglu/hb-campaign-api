@@ -37,7 +37,9 @@ public class CommandServiceTest {
     public void it_should_run_product_create_command() {
         //given
         when(applicationContext.getBean("productCreateExecutorService", ICommandExecutor.class))
-                .thenReturn(productCreateExecutorService)
+                .thenReturn(productCreateExecutorService);
+
+        when(applicationContext.getBean("productInfoExecutorService", ICommandExecutor.class))
                 .thenReturn(productInfoExecutorService);
 
         List<String> commands = Arrays.asList("get_product_info 1", "create_product 1 100 1000");

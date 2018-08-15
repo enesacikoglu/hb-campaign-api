@@ -9,6 +9,7 @@ import com.company.campaign.api.domain.CampaignProduct;
 import com.company.campaign.api.domain.Order;
 import com.company.campaign.api.domain.Product;
 import com.company.campaign.api.domain.enums.StatusType;
+import com.company.campaign.api.exception.CampaignApiDomainNotFoundException;
 import com.company.campaign.api.repository.CampaignProductRepository;
 import com.company.campaign.api.repository.OrderRepository;
 import com.company.campaign.api.repository.ProductRepository;
@@ -137,13 +138,13 @@ public class OrderCreateExecutorServiceTest {
         //then
         verifyZeroInteractions(orderRepository);
         verify(productRepository, times(0)).save(any(Product.class));
-
-        assertThat(throwable.getMessage()).isEqualTo("Stock Exceed!");
+        CampaignApiDomainNotFoundException exception = (CampaignApiDomainNotFoundException) throwable;
+        assertThat(exception.getMessageKey()).isEqualTo("stock.exceed.exception");
 
     }
 
     @Test
-    public void it_should_update_price_of_order_when_campaign_found_and_active() throws Exception {
+    public void it_should_update_price_of_order_when_campaign_found_and_active() {
         //given
         final String command = "create_order 1 200";
 
