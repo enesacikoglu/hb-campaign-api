@@ -3,7 +3,6 @@ Spring boot Campaign Api
 
 ![swagger](https://user-images.githubusercontent.com/21153996/44146058-9d68124e-a096-11e8-9236-53b4da8368d0.png)
 
-
 RestFul Service uses following Technologies:
 
 * Spring-boot
