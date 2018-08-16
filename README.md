@@ -16,6 +16,8 @@ RestFul Service uses following Technologies:
 
 ## Run Commands Samples:
 
+On initial all command as listed below will be executed and write log to the console
+
 * create_product 1 100 1000
 * get_product_info 1
 * create_order 1 100
